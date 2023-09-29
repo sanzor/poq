@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Poq.Services
+﻿
+namespace Poq.Services;
+public interface IFrequencyCounterService
 {
-    public interface IFrequencyCounterService
-    {
-        SortedDictionary<string, int> CalculateFrequencyMap(IEnumerable<string> lines);
-    }
+    SortedDictionary<string, int> CalculateFrequencyMap(IEnumerable<string> lines);
 }
