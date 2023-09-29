@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Poq.Services.FrequencyCounter
+namespace Poq.Services
 {
     public interface IFrequencyCounterService
     {

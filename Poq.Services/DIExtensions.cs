@@ -14,6 +14,7 @@ namespace Poq.Services
     {
         public static IServiceCollection AddCoreServices(this IServiceCollection services,IConfiguration configuration)
         {
+            services.AddSingleton<IFilterObjectService, FilterObjectService>();
             services.AddSingleton<IProductService, ProductService>();
             return services;
         }

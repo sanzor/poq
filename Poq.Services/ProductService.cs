@@ -1,7 +1,6 @@
 ﻿using Poq.DataAccess.Contracts;
 using Poq.Models;
 using Poq.Models.Models;
-using Poq.Services.FrequencyCounter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +15,7 @@ namespace Poq.Services
         private readonly IProductsDataService productDataService;
         private readonly IFrequencyCounterService frequencyCounterService;
         private readonly IFilterService filterService;
-
+        private readonly IFilterObjectService filterObjectService;
         private const int SKIP_MOST_COMMON_WORDS_COUNT = 5;
         private const int TAKE_MOST_COMMON_WORDS_COUNT = 10;
 
@@ -109,13 +108,15 @@ namespace Poq.Services
         public ProductService(
             IProductsDataService extractionService,
             IFrequencyCounterService frequencyCounterService,
-            IFilterService filterService)
+            IFilterService filterService,
+            IFilterObjectService filterObjectService)
         {
             this.productDataService = extractionService ??
                 throw new ArgumentNullException(nameof(extractionService));
             this.frequencyCounterService = frequencyCounterService ??
                 throw new ArgumentNullException(nameof(frequencyCounterService));
             this.filterService = filterService ?? throw new ArgumentNullException(nameof(filterService));
+            this.filterObjectService = filterObjectService??throw new ArgumentNullException(nameof(filterObjectService));
         }
 
 
