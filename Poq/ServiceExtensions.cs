@@ -10,7 +10,7 @@ namespace Poq
         public static IServiceCollection AddGetsBetsServices(this IServiceCollection services,IConfiguration config)
         {
             services.AddCoreServices(config);
-            services.AddDataAccess(config);
+            services.AddDataAccess();
             services.AddValidators();
             return services;
 

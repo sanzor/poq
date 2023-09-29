@@ -8,30 +8,23 @@ using System.Threading.Tasks;
 namespace Poq
 {
     public class Adapter
+
+
     {
-        public static Either<Error,GetExtractionsForDateParams> Adapt(GetExtractionsForDateDto dto)
+        public static Either<Error,GetProductsParams> Adapt(GetProductsFilterParamsDto dto)
         {
             var rez=Try(() =>
             {
-                return new GetExtractionsForDateParams
+                return new GetProductsParams
                 {
-                    DateFilter = dto.DateFilter
+                  Highlight =dto.Highlight,
+                  MinPrice=dto.MinPrice,
+                  MaxPrice=dto.MaxPrice
+
                 };
             }).ToEither(exc => Error.New(exc));
             return rez;
         }
-        public static Either<Error, GetTopExtractedNumbersParams> Adapt(GetTopExtractedNumbersDto dto)
-        {
-            var rez = Try(() =>
-            {
-                return new GetTopExtractedNumbersParams
-                {
-                    Date=dto.Date,
-                    TopLeastExtractedNumbersCount=dto.TopLeastExtractedNumbersCount,
-                    TopMostExtractedNumbersCount=dto.TopMostExtractedNumbersCount
-                };
-            }).ToEither(exc => Error.New(exc));
-            return rez;
-        }
+     
     }
 }

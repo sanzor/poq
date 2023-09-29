@@ -12,11 +12,10 @@ namespace Poq.DataAccess.Postgres
 {
     public static class DIExtensions
     {
-        public static IServiceCollection AddDataAccess(this IServiceCollection services,IConfiguration configuration)
+        public static IServiceCollection AddDataAccess(this IServiceCollection services)
         {
-            services.RegisterDbConfiguration(configuration);
-            services.AddSingleton<IExtractionDataService, ExtractionDataService>();
-            services.AddSingleton<IExtractionRepository, ExtractionRepository>();
+            services.AddSingleton<IProductsDataService, ProductsDataService>();
+            services.AddSingleton<IProductsRepository, ProductsRepository>();
             return services;
         }
     }

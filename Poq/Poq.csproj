@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Scripts\**" />
+    <Content Remove="Scripts\**" />
+    <EmbeddedResource Remove="Scripts\**" />
+    <None Remove="Scripts\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="App.Metrics.AspNetCore.Routing" Version="4.3.0" />
     <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="6.0.5" />
     <PackageReference Include="FluentValidation" Version="11.5.2" />
@@ -25,14 +32,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Poq.DataAccess.Common\Poq.DataAccess.Common.csproj" />
     <ProjectReference Include="..\Poq.DataAccess.Contracts\Poq.DataAccess.Contracts.csproj" />
-    <ProjectReference Include="..\Poq.DataAccess.Postgres\Poq.DataAccess.Postgres.csproj" />
+    <ProjectReference Include="..\Poq.DataAccess.Postgres\Poq.DataAccess.Url.csproj" />
     <ProjectReference Include="..\Poq.Services\Poq.Services.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Scripts\" />
   </ItemGroup>
 
 </Project>
