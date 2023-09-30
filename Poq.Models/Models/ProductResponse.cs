@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Poq.Services
+namespace Poq.Models
 {
-    public class FilterObject
+    public class ProductResponse
     {
+        public List<Product> Products { get; set;}
     }
 }

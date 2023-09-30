@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Poq.Models.Models
+namespace Poq.Models
 {
     public class Product
     {

@@ -30,7 +30,7 @@ namespace Poq
                 {"db_server_conneection_string", configuration.GetValue<string>("connectionString") },
                 {"redis_conneection_string", configuration.GetValue<string>("redis:connectionString") },
                 {"redis_channel",configuration.GetValue<string>("redis:extractionChannel") },
-                {"extraction_client",configuration.GetValue<ExtractionClientConfiguration>("extractionClient") }
+               
             };
             return result;
         }

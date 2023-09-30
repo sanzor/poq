@@ -18,7 +18,7 @@ namespace Poq
 
         // GET: api/<ValuesController1>
         [HttpGet]
-        [Route("/extractions/get-products")]
+        [Route("/get-products")]
         [Consumes("application/json")]
         [Produces("application/json")]
         public async Task<IActionResult> GetProductsAsync(

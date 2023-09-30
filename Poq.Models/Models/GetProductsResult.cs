@@ -1,4 +1,4 @@
-﻿using Poq.Models.Models;
+﻿using Poq.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +10,6 @@ namespace Poq.Models
     public class GetProductsResult
     {
         public IEnumerable<Product> Products { get; set; }
+        public FilterObject FilterObject { get; set; }
     }
 }

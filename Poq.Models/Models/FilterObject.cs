@@ -8,5 +8,9 @@ namespace Poq.Models
 {
     public class FilterObject
     {
+        public double MinPrice { get; set; }
+        public double MaxPrice { get; set; }
+        public List<string> Sizes { get; set; } = new List<string>();
+        public List<string> MostCommonWords { get; set; } = new List<string>();
     }
 }

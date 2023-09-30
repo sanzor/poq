@@ -1,4 +1,6 @@
 ﻿
+using Poq.Models;
+
 namespace Poq.Services;
 
 public interface IFilterObjectService

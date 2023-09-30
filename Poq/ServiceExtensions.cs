@@ -1,7 +1,7 @@
 ﻿using Poq.Services;
-using Poq.DataAccess.Postgres;
 using FluentValidation;
 using Serilog;
+using Poq.DataAccess.Url;
 
 namespace Poq
 {

@@ -1,5 +1,5 @@
 ﻿using Poq.Models;
-using Poq.Models.Models;
+using Poq.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

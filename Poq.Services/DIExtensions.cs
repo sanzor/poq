@@ -7,7 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-    
+using System.Security.Cryptography.X509Certificates;
+
 namespace Poq.Services
 {
     public static class DIExtensions
@@ -16,6 +17,8 @@ namespace Poq.Services
         {
             services.AddSingleton<IFilterObjectService, FilterObjectService>();
             services.AddSingleton<IProductService, ProductService>();
+            services.AddSingleton<IFilterService, FilterService>();
+            services.AddSingleton<IFrequencyCounterService,FrequencyCounterService>();
             return services;
         }
      

@@ -10,4 +10,12 @@ namespace Poq.Services
     {
         public Error Error { get; set; }
     }
+    internal static class ContextExtensions
+    {
+        public static BaseContext SetError(this BaseContext context, Error error)
+        {
+            context.Error = error;
+            return context;
+        }
+    }
 }
