@@ -10,7 +10,7 @@ namespace Poq.Services
     public interface IProductService
     {
         
-        EitherAsync<Error, GetProductsResult> GetProductsAsync(GetProductsParams getExtractionsForDateParams);
+        EitherAsync<Error, GetProductsResult> GetFilteredProductsAsync(GetProductsParams getExtractionsForDateParams);
        
     }
 }

@@ -3,67 +3,83 @@ using Poq.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Serilog;
+using FluentValidation;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+namespace Poq;
 
-namespace Poq
+/// <summary>
+/// To put authorization on controller !
+/// </summary>
+/// 
+[Route("[controller]")]
+[ApiController]
+public class ProductController : ControllerBase
 {
-    [Route("[controller]")]
-    [ApiController]
-    public class ProductController : ControllerBase
+    private Serilog.ILogger _logger = Log.ForContext<ProductController>();
+
+    public readonly IProductService _productService;
+    private readonly IValidator<GetProductsParams> _validator;
+
+    // GET: api/<ValuesController1>
+    /// <summary>
+    /// We retrieve the url arguments , construct a dto , validate it according to rules\n
+    /// With the input object we then proceed towards our flow\n
+    /// The result of the flow is matched if it is an ok or an error and given an according HTTP status code
+    /// </summary>
+    /// <param name="minPrice"></param>
+    /// <param name="maxPrice"></param>
+    /// <param name="highlight"></param>
+    /// <returns></returns>
+    [HttpGet]
+    [Route("/get-products")]
+    [Produces("application/json")]
+    public async Task<IActionResult> GetProductsAsync(
+
+        [FromQuery(Name = "minprice")] int? minPrice,
+        [FromQuery(Name = "maxprice")] int? maxPrice,
+        [FromQuery(Name = "highlight")] string? highlight)
     {
-        private Serilog.ILogger _logger = Log.ForContext<ProductController>();
-       
-        public IProductService _productService { get; }
 
-        // GET: api/<ValuesController1>
-        [HttpGet]
-        [Route("/get-products")]
-        [Consumes("application/json")]
-        [Produces("application/json")]
-        public async Task<IActionResult> GetProductsAsync(
-            [FromQuery(Name ="minprice")]int? minPrice,
-            [FromQuery(Name="maxprice")] int? maxPrice,
-            [FromQuery(Name ="highlight")] string?highlight)
-        {
-            if (!ModelState.IsValid)
+        var result = await Adapter
+            .Adapt(new GetProductsFilterParamsDto
             {
-                var modelErrrors = GetModelStateErrors(ModelState);
-                return BadRequest(modelErrrors);
+                Highlight = highlight,
+                MaxPrice = maxPrice,
+                MinPrice = minPrice
+            })
+            .Bind(getProductParams =>
+            {
+                var rez = _validator.Validate(getProductParams);
+                if (!rez.IsValid)
+                {
+                    var errorMessage = string.Join("\n", rez.Errors.Select(x => x.ErrorMessage));
+                    return Left<Error, GetProductsParams>
+                    (Error.New("Validation Error:\n" + errorMessage));
+                }
+                return Right<Error, GetProductsParams>(getProductParams);
+            })
+        .ToAsync()
+        .Bind(_productService.GetFilteredProductsAsync)
+        .Match(ok =>
+        {
+            return StatusCode(200, ok);
+        }, err =>
+        {
+            _logger.Error(err.Message);
+            if (err.Message.StartsWith("Validation"))
+            {
+
+                return StatusCode(400, err.Message);
             }
-            var  result = await Adapter
-                .Adapt(new GetProductsFilterParamsDto {Highlight=highlight,MaxPrice=maxPrice,MinPrice=minPrice })
-                .ToAsync()
-            
-            .Bind(_productService.GetProductsAsync)
-            .Match(ok =>
-            {
-                return StatusCode(200, ok);
-            }, err =>
-            {
-                return StatusCode(500, err.Message);
-            });
-            return result;
-            
-        }
+            return StatusCode(500, err.Message);
+        });
+        return result;
 
-       
+    }
 
-       
-        private static string GetModelStateErrors(ModelStateDictionary modelState)
-        {
-            var errorList = modelState
-                .Keys
-                .SelectMany(key => modelState[key].Errors)
-                .Select(error => error.Exception != null ? error.Exception.Message : error.ErrorMessage)
-                .ToList();
-            return string.Join(Environment.NewLine, errorList);
-        }
-        
-
-        public ProductController(IProductService productService)
-        {
-            _productService = productService??throw new ArgumentNullException(nameof(productService));
-        }
+    public ProductController(IProductService productService, IValidator<GetProductsParams> validator)
+    {
+        _productService = productService ?? throw new ArgumentNullException(nameof(productService));
+        _validator = validator ?? throw new ArgumentNullException(nameof(validator));
     }
 }

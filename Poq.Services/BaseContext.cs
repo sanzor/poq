@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Poq.Services
 {
-    internal class BaseContext
+    /// <summary>
+    /// Base class when using  state objects within our flows 
+    /// </summary>
+    internal abstract class BaseContext
     {
         public Error Error { get; set; }
     }

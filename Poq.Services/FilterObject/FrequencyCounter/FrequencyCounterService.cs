@@ -8,25 +8,27 @@ namespace Poq.Services
 {
     public class FrequencyCounterService : IFrequencyCounterService
     {
-        public SortedDictionary<string, int> CalculateFrequencyMap(IEnumerable<string> descriptions)
+        public Dictionary<string, int> CalculateFrequencyMap(IEnumerable<string> descriptions)
         {
-            var sortedDictionary=new SortedDictionary<string, int>();
+            var frequencyMap=new Dictionary<string, int>();
             foreach (string description in descriptions)
             {
                 var words=description.Split(' ');
                 foreach (var item in words)
                 {
-                    if(!sortedDictionary.TryGetValue(item,out int _))
+                    if(!frequencyMap.TryGetValue(item,out int _))
                     {
-                        sortedDictionary.Add(item, 1);
+                        frequencyMap.Add(item, 1);
                     }
                     else
                     {
-                        sortedDictionary[item]++;
+                        frequencyMap[item]++;
                     }
                 }
             }
-            return sortedDictionary;
+            var sortedDict =
+                frequencyMap.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, y => y.Value);
+            return sortedDict;
         }
     }
 }

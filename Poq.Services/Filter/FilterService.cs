@@ -12,7 +12,7 @@ namespace Poq.Services
     {
        
 
-        public IEnumerable<Product> FilterProducts(IEnumerable<Product> products, GetProductsParams filters)
+        public IEnumerable<Product> FilterProducts(IEnumerable<Product> products, FilterParams filters)
         {
             var filteredProducts = products.Where(x =>
                 (filters.MinPrice.HasValue ? x.Price > filters.MinPrice.Value : true) &&

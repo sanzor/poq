@@ -11,8 +11,16 @@ namespace Poq.Services
     internal class FilterObjectService : IFilterObjectService
     {
         private readonly IFrequencyCounterService _frequencyCounterService;
+        /// <summary>
+        /// Ideally we would use a configuration file , or even put these parameters in the request
+        /// </summary>
         private const int SKIP_MOST_COMMON_WORDS_COUNT = 5;
+        /// <summary>
+        /// same here
+        /// </summary>
         private const int TAKE_MOST_COMMON_WORDS_COUNT = 10;
+
+
         public Either<Error, FilterObject> CreateFilterObject(CreateFilterObjectParams createFilterObjectParams)
         {
             var result = Right<FilterObjectContext, FilterObjectContext>(new FilterObjectContext

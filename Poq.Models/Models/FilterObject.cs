@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Poq.Models
 {
+    /// <summary>
+    /// Object containing data for task 3c
+    /// </summary>
     public class FilterObject
     {
         public double MinPrice { get; set; }

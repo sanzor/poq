@@ -2,12 +2,13 @@
 using FluentValidation;
 using Serilog;
 using Poq.DataAccess.Url;
+using Poq.Models;
 
 namespace Poq
 {
     public static class ServiceExtensions
     {
-        public static IServiceCollection AddGetsBetsServices(this IServiceCollection services,IConfiguration config)
+        public static IServiceCollection AddPoqServices(this IServiceCollection services,IConfiguration config)
         {
             services.AddCoreServices(config);
             services.AddDataAccess();
@@ -17,7 +18,7 @@ namespace Poq
         }
         public static IServiceCollection AddValidators(this IServiceCollection services)
         {
-            services.AddSingleton<IValidator, GetTopExtractedNumbersParamsValidator>();
+            services.AddScoped<IValidator<GetProductsParams>, GetProductsValidator>();
             return services;
 
         }

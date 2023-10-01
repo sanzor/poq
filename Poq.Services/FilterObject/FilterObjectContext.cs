@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Poq.Services
 {
+    /// <summary>
+    /// Class for holding the state of the FilterObject (task 3c)  as we set its fields sequentially
+    /// </summary>
     internal class FilterObjectContext:BaseContext
     {
         //Input

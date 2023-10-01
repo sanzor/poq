@@ -10,6 +10,10 @@ using System.Threading.Tasks;
 
 namespace Poq.Tests
 {
+    /// <summary>
+    /// We set up a data source from a local file , so that we dont depend on making calls to the specific url
+    /// The file in Repos/Stubs/Mocky.json is the exact response of the url provided in thhe task
+    /// </summary>
     internal static class MockRepositoryFactory
     {
        public static Mock<IProductsRepository> GetProductsRepository()

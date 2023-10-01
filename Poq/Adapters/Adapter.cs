@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace Poq
 {
+    /// <summary>
+    /// This class is a adapter layer , so that in the even that the input of the request differs, 
+    /// our domain model remains the same , and we only make changes here
+    /// </summary>
     public class Adapter
 
 

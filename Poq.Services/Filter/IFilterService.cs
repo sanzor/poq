@@ -5,5 +5,5 @@ namespace Poq.Services;
 
 public interface IFilterService
 {
-    IEnumerable<Product> FilterProducts(IEnumerable<Product> products, GetProductsParams filters);
+    IEnumerable<Product> FilterProducts(IEnumerable<Product> products, FilterParams filters);
 }

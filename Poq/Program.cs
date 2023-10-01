@@ -13,10 +13,9 @@ Serilog.Log.Logger = new LoggerConfiguration()
 // Add services to the container.
 builder.Services.AddControllers()
                 .AddControllersAsServices();
-builder.Services.AddGetsBetsServices(builder.Configuration);
+builder.Services.AddPoqServices(builder.Configuration);
 builder.Services.AddValidators();
-builder.Services.AddHealthChecks()
-    .AddCheck<ConfigCheck>("config");
+
 
 
 builder.Services.AddHttpClient();
@@ -38,8 +37,6 @@ app.UseRouting()
    .UseEndpoints(ep =>
 {
     ep.MapControllers();
-    ep.MapHealthChecks("/health",
-        new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions { ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse });
 });
 app.UseAuthorization();
 app.Run();
