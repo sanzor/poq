@@ -14,11 +14,20 @@ namespace Poq.Services
 
         public IEnumerable<Product> FilterProducts(IEnumerable<Product> products, FilterParams filters)
         {
-            var filteredProducts = products.Where(x =>
-                (filters.MinPrice.HasValue ? x.Price > filters.MinPrice.Value : true) &&
-                (filters.MaxPrice.HasValue ? x.Price <= filters.MaxPrice.Value : true) &&
-                (!string.IsNullOrEmpty(filters.Size)) ? x.Sizes.Contains(filters.Size) : true);
-            return filteredProducts;
+            var rez = (filters.MinPrice, filters.MaxPrice) switch
+            {
+                (null, null) => products,
+                (int minprice, null) => products.Where(prod => prod.Price >= filters.MinPrice),
+                (null, int maxprice) => products.Where(prod => prod.Price <= filters.MaxPrice),
+                (int minprice, int maxprice) => products
+                    .Where(prod => filters.MinPrice <= prod.Price && prod.Price <= filters.MaxPrice)
+            };
+            if (string.IsNullOrEmpty(filters.Size)){
+                return rez;
+            }
+            var sizeFiltered = rez.Where(prod => prod.Sizes.Contains(filters.Size));
+            return sizeFiltered;
+          
 
         }
     }

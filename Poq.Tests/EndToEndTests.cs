@@ -127,7 +127,7 @@ namespace Poq.Tests
             {
                 return;
             }
-            var resp = await _httpClient.GetAsync($"/get-products?maxprice=5");
+            var resp = await _httpClient.GetAsync($"/get-products?maxprice={maxPrice}");
             resp.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
             var dataString = await resp.Content.ReadAsStringAsync();
             var productResponse = JsonConvert.DeserializeObject<GetProductsResult>(dataString);
@@ -156,7 +156,7 @@ namespace Poq.Tests
             {
                 return;
             }
-            var resp = await _httpClient.GetAsync($"/get-products?maxprice=5");
+            var resp = await _httpClient.GetAsync($"/get-products?maxprice={maxPrice}&minprice={minPrice}");
             resp.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
             var dataString = await resp.Content.ReadAsStringAsync();
             var productResponse = JsonConvert.DeserializeObject<GetProductsResult>(dataString);
@@ -190,6 +190,7 @@ namespace Poq.Tests
         [Theory]
         [InlineData("green,blue",11,15)]
         [InlineData("green",11,22)]
+        [InlineData("red",10,13)]
         public async Task CanUseMinMaxHightlight(string highlightsString,int minPrice,int maxPrice)
         {
             var realDataProducts =

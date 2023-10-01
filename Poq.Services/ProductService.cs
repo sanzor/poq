@@ -101,7 +101,7 @@ public class ProductService : IProductService
     {
         var descriptionWords = productDescription.Split(' ')
             .Select(descriptionWord =>
-                highlight.Contains(descriptionWord) ? 
+                highlight.Contains(descriptionWord.ToLower()) || highlight.Contains(descriptionWord) ? 
                 $"<{HIGHLIGHT_TAG}>{descriptionWord}</{HIGHLIGHT_TAG}>" :
                 descriptionWord);
 
