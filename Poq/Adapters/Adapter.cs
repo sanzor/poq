@@ -23,7 +23,8 @@ namespace Poq
                 {
                   Highlight =dto.Highlight,
                   MinPrice=dto.MinPrice,
-                  MaxPrice=dto.MaxPrice
+                  MaxPrice=dto.MaxPrice,
+                  Size=dto.Size
 
                 };
             }).ToEither(exc => Error.New(exc));

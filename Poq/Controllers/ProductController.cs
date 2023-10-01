@@ -37,7 +37,8 @@ public class ProductController : ControllerBase
 
         [FromQuery(Name = "minprice")] int? minPrice,
         [FromQuery(Name = "maxprice")] int? maxPrice,
-        [FromQuery(Name = "highlight")] string? highlight)
+        [FromQuery(Name = "highlight")] string? highlight,
+        [FromQuery(Name ="size")] string? size)
     {
 
         var result = await Adapter
@@ -45,7 +46,9 @@ public class ProductController : ControllerBase
             {
                 Highlight = highlight,
                 MaxPrice = maxPrice,
-                MinPrice = minPrice
+                MinPrice = minPrice,
+                Size=size
+                
             })
             .Bind(getProductParams =>
             {
