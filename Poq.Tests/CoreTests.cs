@@ -49,7 +49,8 @@ namespace Poq.Tests
             }).Match(filterObject =>
             {
                 var mostFoundWord = filterObject.MostCommonWords.FirstOrDefault();
-                Assert.Equal(mostFoundWord, (length - 5-1).ToString());
+                ///Skipping the first 5 , taking the next 10 , should start from length=11 - 6
+                Assert.Equal(mostFoundWord, (length - 6).ToString());
             }, err =>
             {
                 throw new Exception(err.Message);
