@@ -226,8 +226,48 @@ namespace Poq.Tests
             words.Any(w => highlights.Contains(w.Value)).Should().BeTrue();
         }
 
-       
 
+
+        [Theory]
+        [InlineData("green,blue", 11, 15,"large")]
+        [InlineData("green", 11, 22,"medium")]
+        [InlineData("red", 10, 13,"small")]
+        public async Task CanUseMinMaxHightlightAndSize(string highlightsString, int minPrice, int maxPrice,string size)
+        {
+            var realDataProducts =
+              await ReadFromFileDataAsync();
+            var realMinPrice = realDataProducts.Min(x => x.Price);
+            var realMaxPrice = realDataProducts.Max(x => x.Price);
+            if (minPrice > maxPrice)
+            {
+                return;
+            }
+            if (maxPrice < realMinPrice || minPrice > realMaxPrice)
+            {
+                return;
+            }
+
+            var highlights = highlightsString.Split(',');
+            var resp = await _httpClient
+                .GetAsync($"/get-products?minprice={minPrice}" +
+                $"&maxprice={maxPrice}" +
+                $"&highlight={highlightsString}" +
+                $"&size={size}");
+            resp.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+            var dataString = await resp.Content.ReadAsStringAsync();
+            var productResponse = JsonConvert.DeserializeObject<GetProductsResult>(dataString);
+            productResponse.Should().NotBeNull();
+
+            productResponse.Products.Any(x =>
+                minPrice <= x.Price &&
+                x.Price <= maxPrice)
+                .Should().BeTrue();
+            Assert.True(productResponse.Products.Count() > 0);
+            var descriptions = productResponse.Products.Select(x => x.Description);
+            var words = descriptions.SelectMany(x => Regex.Matches(x, "(?<=<em>)(.*?)(?=</em>)"));
+            words.Any(w => highlights.Contains(w.Value)).Should().BeTrue();
+            productResponse.Products.Any(x => x.Sizes.Contains(size)).Should().BeTrue();
+        }
         public EndToEndTests(PoqApplicationFactory factory)
         {
             _httpClient = factory.Client;
