@@ -1,8 +1,13 @@
 Assignment Notes
 
+The project can be found on github at : https://github.com/sanzor/poq/tree/master
+
 The project contains comments within the code in the classes where i have seen fit to explain 
+
 The project makes heavy use of functional library LanguageExtensions : https://github.com/louthy/language-ext
+
 The project uses Fluent Validator library to validate input parameters: https://docs.fluentvalidation.net/en/latest/
+
 The project has unit tests (XUnit) included ( csproj : Poq.Tests)
 - a class for end to end tests using Web Appplication Factory (EndToEndTests.cs)
 - a class for services logic testing (CoreTests.cs)
