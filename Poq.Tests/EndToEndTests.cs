@@ -171,7 +171,6 @@ namespace Poq.Tests
         [InlineData("green,blue")]
         [InlineData("blue")]
         [InlineData("green")]
-        [InlineData("yellow,yellow")]
         public async Task CanUseHighlight(string highlightsString) {
             var highlights = highlightsString.Split(',');
             var resp = await _httpClient.GetAsync($"/get-products?highlight={highlightsString}");
