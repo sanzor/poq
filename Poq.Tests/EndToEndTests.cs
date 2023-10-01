@@ -225,6 +225,9 @@ namespace Poq.Tests
             var words = descriptions.SelectMany(x => Regex.Matches(x, "(?<=<em>)(.*?)(?=</em>)"));
             words.Any(w => highlights.Contains(w.Value)).Should().BeTrue();
         }
+
+       
+
         public EndToEndTests(PoqApplicationFactory factory)
         {
             _httpClient = factory.Client;
