@@ -1,0 +1,20 @@
+Assignment Notes
+
+The project contains comments within the code in the classes where i have seen fit to explain 
+The project makes heavy use of functional library LanguageExtensions : https://github.com/louthy/language-ext
+The project uses Fluent Validator library to validate input parameters: https://docs.fluentvalidation.net/en/latest/
+The project has unit tests (XUnit) included ( csproj : Poq.Tests)
+- a class for end to end tests using Web Appplication Factory (EndToEndTests.cs)
+- a class for services logic testing (CoreTests.cs)
+
+
+Structure of the project:
+
+* Poq - Web Api project containing the controller/routing and validation logic
+* Poq.DataAccess.Contracts - contains the data access abstractions (repository pattern for fetching the products)
+* Poq.DataAccess.Url  - contains the logic for retrieving the data from the provided url, while making it look like it comes from a database
+* Poq.Models - contains the models (classes) that are used within the application logic , ex: Product { minprice,maxprice,size,description}
+* Poq.Services - contains all the flow logic for retrieving the data and transform it (this dll is consumed by the Poq Web Api project)
+* Poq.Tests - contains unit tests and integration tests( end to end ) for the applications
+
+P.S A configuration couldve been added to hold for task 3c iii , for the SKIP and TAKE paramters , or they could be provided in the request
